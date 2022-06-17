@@ -1,4 +1,34 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
+module.exports = {
+  pages: {
+    index: {
+      //入口
+      entry: 'src/main.js'
+    },
+  },
+  lintOnSave: false,//关闭语法检查
+  //开启代理服务器（方式一）
+  devServer: {
+     proxy:'http://localhost:5000'//代理服务器给5000服务器发送请求
+  },
+  //开启代理服务器（方式二）
+  devServer: {
+    proxy: {
+      // '/api': {
+      //   target: 'http://localhost:5000',
+      //   pathRewrite:{'^/api':''},
+      //  ws: true,
+      //  changeOrigin: true, //用于控制请求头中的host值
+      // },
+      '/demo': {
+        target: 'http://localhost:5001',
+        pathRewrite:{'^/demo':''},
+       ws: true,
+       changeOrigin: true, //用于控制请求头中的host值
+      },
+   // '/foo': {
+   //   target: '<other_url>'
+      // }
+    }
+  }
+}
+
